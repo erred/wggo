@@ -5,7 +5,7 @@
 
 Dockerfile for [wireguard-go](https://git.zx2c4.com/wireguard-go/about/)
 
-**Warning**: you should probably be using kernel modules
+**Warning**: you should probably be using kernel modules, ex: the [activeeos/wireguard-docker](https://github.com/activeeos/wireguard-docker)
 
 ## Motivation
 
