@@ -1,32 +1,46 @@
 # wggo
 
-[![Build](https://img.shields.io/badge/endpoint.svg?url=https://badger.seankhliao.com/r/github_seankhliao_wggo)](https://console.cloud.google.com/cloud-build/builds?project=com-seankhliao&query=source.repo_source.repo_name%20%3D%20%22github_seankhliao_wggo%22)
-[![License](https://img.shields.io/github/license/seankhliao/wggo.svg?style=for-the-badge)](LICENSE)
+[wireguard-go](https://git.zx2c4.com/wireguard-go/about/) in a container, becuase `WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1`
 
-Dockerfile for [wireguard-go](https://git.zx2c4.com/wireguard-go/about/)
+[![License](https://img.shields.io/github/license/seankhliao/wggo.svg?style=for-the-badge&maxAge=31536000)](LICENSE)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=for-the-badge&maxAge=31536000)](https://godoc.org/github.com/seankhliao/wggo)
+[![Build](https://badger.seankhliao.com/i/github_seankhliao_wggo)](https://badger.seankhliao.com/l/github_seankhliao_wggo)
 
-**Warning**: you should probably be using kernel modules, ex: the [activeeos/wireguard-docker](https://github.com/activeeos/wireguard-docker)
+## About
 
-## Motivation
+I ~~needed~~ wanted to run a wireguard VPN server on a system without access to kernel modules (GKE coos)
 
-Running wireguard in a container with kernel modules disabled (ie. GKE coos)
+Based on [activeeos/wireguard-docker](https://github.com/activeeos/wireguard-docker), kernel module version of wireguard in a container, which you should probably be using
 
-## Build
+## Usage
 
-```
-docker build --net=host .
-```
+#### Prerequisites
 
-## Run
+- `CAP_NET_ADMIN` and `/dev/net/tun`
+- A `wg-quick` config file
 
-Note: expose ports as appropriate
+#### Run
 
-```
+1. mount conf file into `/etc/wireguard/`, (name doesn't matter)
+2. expose the port as specified in conf file
+
+```sh
 docker run --rm \
+  --cap-add=NET_ADMIN \
   -v /dev/net/tun:/dev/net/tun \
   -v /abs/path/to/wg-quick/conf/file:/etc/wireguard/name_of_interface.conf \
-  --cap-add=NET_ADMIN \
   -p port:expose \
   seankhliao/wggo
-
 ```
+
+#### Build
+
+With docker:
+
+```sh
+docker build .
+```
+
+## Links
+
+- [activeeos/wireguard-docker](https://github.com/activeeos/wireguard-docker): kernel mod version
