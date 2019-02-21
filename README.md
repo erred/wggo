@@ -3,7 +3,6 @@
 [wireguard-go](https://git.zx2c4.com/wireguard-go/about/) in a container, becuase `WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1`
 
 [![License](https://img.shields.io/github/license/seankhliao/wggo.svg?style=for-the-badge&maxAge=31536000)](LICENSE)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=for-the-badge&maxAge=31536000)](https://godoc.org/github.com/seankhliao/wggo)
 [![Build](https://badger.seankhliao.com/i/github_seankhliao_wggo)](https://badger.seankhliao.com/l/github_seankhliao_wggo)
 
 ## About
