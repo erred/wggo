@@ -37,7 +37,9 @@ docker run --rm \
 With docker:
 
 ```sh
-docker build .
+docker build \
+  --network host \
+  .
 ```
 
 ## Links
