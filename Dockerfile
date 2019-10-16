@@ -1,16 +1,15 @@
 FROM golang:alpine AS build
+ENV GO111MODULE=on
 
-RUN apk add make git && \
-    git clone https://git.zx2c4.com/wireguard-go /wireguard-go
-WORKDIR /wireguard-go
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 make
+RUN go get golang.zx2c4.com/wireguard
+
 
 FROM alpine
+ENV WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1
 
-RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-    apk add --no-cache bash wireguard-tools
-COPY --from=build /wireguard-go/wireguard-go /usr/bin/wireguard-go
+RUN apk add --no-cache bash wireguard-tools
+
 COPY run.sh .
+COPY --from=build /go/bin/wireguard /usr/bin/wireguard-go
 
-ENV WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1 
 ENTRYPOINT ["/run.sh"]

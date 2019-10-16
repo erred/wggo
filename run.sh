@@ -1,15 +1,14 @@
-#!/bin/sh
-
+#!/bin/bash
 set -e
 
 # Find a Wireguard interface
-interfaces=`find /etc/wireguard -type f`
-if [ -z $interfaces ]; then
+interfaces=$(find /etc/wireguard -type f)
+if [[ -z $interfaces ]]; then
     echo "$(date): Interface not found in /etc/wireguard" >&2
     exit 1
 fi
 
-interface=`echo $interfaces | head -n 1`
+interface=$(echo $interfaces | head -n 1)
 
 echo "$(date): Starting Wireguard"
 wg-quick up $interface
