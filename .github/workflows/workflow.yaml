@@ -1,0 +1,21 @@
+name: workflow
+on:
+  push:
+    brnaches:
+      - master
+  schedule:
+    - cron: "0 0 * * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - run: docker build -t docker.pkg.github.com/seankhliao/wggo/wggo:latest -t seankhliao/wggo:latest .
+      - run: docker login -u seankhliao -p $TOKEN
+        env:
+          TOKEN: ${{ secrets.DOCKERPAT }}
+      - run: docker push seankhliao/wggo:latest
+      - run: docker login docker.pkg.github.com -u seankhliao -p $TOKEN
+        env:
+          TOKEN: ${{ secrets.GITHUBPAT }}
+      - run: docker push docker.pkg.github.com/seankhliao/wggo/wggo:latest
