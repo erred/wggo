@@ -2,10 +2,9 @@
 
 [wireguard-go](https://git.zx2c4.com/wireguard-go/about/) in a container, becuase `WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1`
 
+[![Docker](https://img.shields.io/docker/pulls/seankhliao/wggo?style=flat-square)](https://hub.docker.com/r/seankhliao/wggo)
 [![License](https://img.shields.io/github/license/seankhliao/wggo.svg?style=flat-square)](LICENSE)
-[![docker](https://img.shields.io/badge/docker-seankhliao%2Fwggo-informational?style=flat-square)](https://hub.docker.com/r/seankhliao/wggo)
-[![pkg.github](https://img.shields.io/badge/pkg.github-docker-informational?style=flat-square)](https://github.com/seankhliao/wggo/packages)
-[![build](https://github.com/seankhliao/wggo/workflows/workflow/badge.svg?style=flat-square)](https://github.com/seankhliao/wggo/actions)
+![Version](https://img.shields.io/github/v/tag/seankhliao/wggo?sort=semver&style=flat-square)
 
 ## About
 
