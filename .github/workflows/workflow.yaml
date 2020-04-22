@@ -1,8 +1,5 @@
 name: workflow
 on:
-  push:
-    branches:
-      - master
   schedule:
     - cron: "0 0 * * *"
 jobs:
@@ -14,4 +11,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUBPAT }}
       - run: curl -s https://proxy.golang.org/golang.zx2c4.com/wireguard/@v/list | head -n 1 > VERSION
-      - run: git diff-index --quiet HEAD && git add VERSION && git commit -m $(cat VERSION) && git tag $(cat VERSION) && git push origin $(cat VERSION)
+      - run: git diff-index --quiet HEAD && git add VERSION && git commit -m $(cat VERSION) && git tag $(cat VERSION) && git push origin $(cat VERSION) && git push origin master
