@@ -3,7 +3,7 @@
 .github
 .gitignore
 
-cloudbuild.yaml
 Dockerfile
 LICENSE
 README.md
+VERSION

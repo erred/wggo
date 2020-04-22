@@ -8,7 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: git config user.email "workflow@github.actions" && git config user.name "GH Actions Ticker" && git checkout master && git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/wggo
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUBPAT }}
       - run: curl -s https://api.github.com/repos/WireGuard/wireguard-go/tags | jq -r '.[0].name' > VERSION
       - run: git diff-index --quiet HEAD && git add VERSION && git commit -m $(cat VERSION) && git tag $(cat VERSION) && git push origin $(cat VERSION) && git push origin master
