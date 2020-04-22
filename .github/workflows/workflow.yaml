@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - run: git config user.email "workflow@github.actions" && git config user.name "GH Actions Ticker" && git checkout master && git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
+      - run: git config user.email "workflow@github.actions" && git config user.name "GH Actions Ticker" && git checkout master && git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/wggo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUBPAT }}
       - run: curl -s https://proxy.golang.org/golang.zx2c4.com/wireguard/@v/list | head -n 1 > VERSION
