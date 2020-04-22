@@ -1,7 +1,7 @@
 name: workflow
 on:
   push:
-    brnaches:
+    branches:
       - master
   schedule:
     - cron: "0 0 * * *"
@@ -10,12 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - run: docker build -t docker.pkg.github.com/seankhliao/wggo/wggo:latest -t seankhliao/wggo:latest .
-      - run: docker login -u seankhliao -p $TOKEN
+      - run: git config user.email "workflow@github.actions" && git config user.name "GH Actions Ticker" && git checkout master && git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
-          TOKEN: ${{ secrets.DOCKERPAT }}
-      - run: docker push seankhliao/wggo:latest
-      - run: docker login docker.pkg.github.com -u seankhliao -p $TOKEN
-        env:
-          TOKEN: ${{ secrets.GITHUBPAT }}
-      - run: docker push docker.pkg.github.com/seankhliao/wggo/wggo:latest
+          GITHUB_TOKEN: ${{ secrets.GITHUBPAT }}
+      - run: curl -s https://proxy.golang.org/golang.zx2c4.com/wireguard/@v/list | head -n 1 > VERSION
+      - run: git diff-index --quiet HEAD && git add VERSION && git commit -m $(cat VERSION) && git tag $(cat VERSION) && git push origin $(cat VERSION) || return true
