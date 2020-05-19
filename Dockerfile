@@ -1,7 +1,7 @@
 FROM golang:alpine AS build
 ENV GO111MODULE=on
 
-RUN go get golang.zx2c4.com/wireguard
+RUN go get golang.zx2c4.com/wireguard@v0.0.20200320
 
 
 FROM alpine
