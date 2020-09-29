@@ -33,4 +33,4 @@ jobs:
           git tag $(cat VERSION) && \
           git push origin master && \
           git push origin $(cat version)
-        if: ${{ steps.versioncheck.outcone == "failure" }}
+        if: ${{ failure() }}
