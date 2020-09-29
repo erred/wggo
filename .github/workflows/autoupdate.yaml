@@ -1,0 +1,36 @@
+name: autoupdate
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "4 5 * * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - run: |
+          git config user.email "wggo-autoupdate@github.actions" && \
+          git config user.name "wggo autoupdate github.actions" && \
+          git checkout master && \
+          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/wggo
+      - name: versioncheck
+        run: |
+          upstreamtag=$( \
+            curl -s https://api.github.com/repos/WireGuard/wireguard-go/tags | \
+            jq -r '.[0].name' \
+          ) && \
+          currenttag=$( \
+            curl -s https://api.github.com/repos/seankhliao/wggo/tags | \
+            jq -r '.[0].name'\
+          ) && \
+          [[ ${upstreamtag} == ${currenttag} ]]
+      - run: |
+          sed s/VERSION/$(cat VERSION)/ Dockerfile.sed > Dockerfile && \
+          git add Dockerfile && \
+          git commit -m "autoupdate to $(cat VERSION)" && \
+          git tag $(cat VERSION) && \
+          git push origin master && \
+          git push origin $(cat version)
+        if: ${{ steps.versioncheck.outcone == "failure" }}

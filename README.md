@@ -14,12 +14,12 @@ Based on [activeeos/wireguard-docker](https://github.com/activeeos/wireguard-doc
 
 ## Usage
 
-#### Prerequisites
+### Prerequisites
 
 - `CAP_NET_ADMIN` and `/dev/net/tun`
 - A `wg-quick` config file
 
-#### Run
+### Run
 
 1. mount conf file into `/etc/wireguard/`, (name doesn't matter)
 2. expose the port as specified in conf file
@@ -33,13 +33,12 @@ docker run --rm \
   seankhliao/wggo
 ```
 
-#### Build
+### Build
 
 With docker:
 
 ```sh
 docker build \
-  --network host \
   .
 ```
 

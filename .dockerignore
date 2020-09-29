@@ -4,6 +4,6 @@
 .gitignore
 
 Dockerfile
+Dockerfile.sed
 LICENSE
 README.md
-VERSION
